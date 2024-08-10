@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fake Virus Joke</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 20%;
+            background-color: #f0f0f0;
+        }
+        #no {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .hidden {
+            display: none;
+        }
+        .progress-bar {
+            width: 80%;
+            height: 30px;
+            background-color: #ddd;
+            border: 1px solid #000;
+            margin: 20px auto;
+            position: relative;
+        }
+        .progress {
+            height: 100%;
+            width: 0%;
+            background-color: #4caf50;
+            transition: width 0.1s;
+        }
+        .file-list {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+            width: 50%;
+            margin: 20px auto;
+        }
+        .file-item {
+            display: none;
+        }
+    </style>
+    <script>
+        function moveNoButton() {
+            var noButton = document.getElementById('no');
+            noButton.style.top = Math.random() * 80 + '%';
+            noButton.style.left = Math.random() * 80 + '%';
+        }
+
+
+        function showFakeDeletion() {
+            document.getElementById('question').classList.add('hidden');
+            document.getElementById('buttons').classList.add('hidden');
+            document.getElementById('deleting').classList.remove('hidden');
+
+
+            var progress = document.getElementById('progress');
+            var files = document.querySelectorAll('.file-item');
+            var progressPercent = 0;
+            var fileIndex = 0;
+
+
+            var interval = setInterval(function() {
+                if (progressPercent >= 100) {
+                    clearInterval(interval);
+                    setTimeout(function() {
+                        document.getElementById('deleting').classList.add('hidden');
+                        document.body.style.backgroundColor = 'black';
+                        setTimeout(function() {
+                            alert("😅 Good thing it wasn't a real virus!!! LOL");
+                            location.reload();
+                        }, 5000);
+                    }, 1000);
+                } else {
+                    progressPercent += 1;
+                    progress.style.width = progressPercent + '%';
+                    if (fileIndex < files.length) {
+                        files[fileIndex].style.display = 'block';
+                        fileIndex++;
+                    }
+                }
+            }, 50);
+        }
+    </script>
+</head>
+<body>
+    <div id="question">
+        <h1>😱 Do you want to delete all files? 😱</h1>
+    </div>
+    <div id="buttons">
+        <button onclick="showFakeDeletion()">😈 Yes 😈</button>
+        <button id="no" onmouseover="moveNoButton()">😅 No 😅</button>
+    </div>
+    <div id="deleting" class="hidden">
+        <h1>🗑️ Deleting all files...</h1>
+        <div class="progress-bar">
+            <div id="progress" class="progress"></div>
+        </div>
+        <ul class="file-list">
+            <li class="file-item">🗑️ Deleting C:\Windows\System32...</li>
+            <li class="file-item">🗑️ Deleting C:\Users\Documents...</li>
+            <li class="file-item">🗑️ Deleting C:\Program Files...</li>
+            <li class="file-item">🗑️ Deleting C:\Users\Pictures...</li>
+            <li class="file-item">🗑️ Deleting C:\Users\Music...</li>
+        </ul>
+    </div>
+</body>
+</html>
+
